@@ -1,0 +1,178 @@
+openapi: 3.0.4
+info:
+  title: SEC Filings
+  description: >-
+    SEC Filings returns the recent EDGAR filing history for a US public company
+    by ticker - 10-K annual reports, 10-Q quarterlies, 8-K current reports, Form
+    4 insider filings, S-1 registrations and more - each with its filing date,
+    form type and a direct link to the document, plus derived filing-activity
+    analytics calculated for you.
+  termsOfService: https://apiverve.com/terms/
+  contact:
+    name: APIVerve Support
+    email: hello@apiverve.com
+    url: https://apiverve.com/contact
+  version: 1.0.0
+externalDocs:
+  description: Learn more about APIVerve
+  url: https://docs.apiverve.com?utm_source=openapi
+servers:
+  - url: https://api.apiverve.com/
+paths:
+  /v1/secfilings:
+    get:
+      summary: SEC Filings
+      description: >-
+        Get the recent SEC EDGAR filing history for a company by ticker symbol.
+        Optionally filter to a specific form type and limit the number of
+        filings returned.
+      operationId: secfilings
+      parameters:
+        - name: ticker
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Stock ticker symbol (e.g. AAPL, MSFT, ADBE)
+          example: AAPL
+        - name: form
+          in: query
+          schema:
+            type: string
+          required: false
+          description: Filter to a single form type (e.g. 10-K, 10-Q, 8-K, 4).
+          example: 10-K
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          required: false
+          description: Number of filings to return (1-50). Defaults to 5.
+          example: 10
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: status
+                  error:
+                    type: string
+                    description: error
+                  data:
+                    type: object
+                    description: data
+              example:
+                status: ok
+                error: null
+                data:
+                  ticker: AAPL
+                  cik: '0000320193'
+                  company: Apple Inc.
+                  sic: '3571'
+                  sicDescription: Electronic Computers
+                  fiscalYearEnd: '0926'
+                  totalRecentFilings: 1000
+                  count: 5
+                  latest:
+                    annual:
+                      form: 10-K
+                      filingDate: '2025-10-31'
+                      accessionNumber: 0000320193-25-000079
+                      primaryDocument: aapl-20250927.htm
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm
+                      daysAgo: 321
+                    quarterly:
+                      form: 10-Q
+                      filingDate: '2026-07-31'
+                      accessionNumber: 0000320193-26-000020
+                      primaryDocument: aapl-20260627.htm
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/aapl-20260627.htm
+                      daysAgo: 48
+                    currentReport:
+                      form: 8-K
+                      filingDate: '2026-07-30'
+                      accessionNumber: 0000320193-26-000018
+                      primaryDocument: aapl-20260730.htm
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000032019326000018/aapl-20260730.htm
+                      daysAgo: 49
+                  filings:
+                    - form: '4'
+                      filingDate: '2026-09-10'
+                      reportDate: '2026-09-08'
+                      primaryDocDescription: FORM 4
+                      accessionNumber: 0001140361-26-036226
+                      primaryDocument: xslF345X06/form4.xml
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000114036126036226/xslF345X06/form4.xml
+                      items: null
+                      isXBRL: false
+                    - form: '4'
+                      filingDate: '2026-09-03'
+                      reportDate: '2026-09-01'
+                      primaryDocDescription: FORM 4
+                      accessionNumber: 0001140361-26-035636
+                      primaryDocument: xslF345X06/form4.xml
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000114036126035636/xslF345X06/form4.xml
+                      items: null
+                      isXBRL: false
+                    - form: '4'
+                      filingDate: '2026-09-01'
+                      reportDate: '2026-09-01'
+                      primaryDocDescription: FORM 4
+                      accessionNumber: 0001140361-26-035362
+                      primaryDocument: xslF345X06/form4.xml
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/xslF345X06/form4.xml
+                      items: null
+                      isXBRL: false
+                    - form: '3'
+                      filingDate: '2026-09-01'
+                      reportDate: '2026-09-01'
+                      primaryDocDescription: FORM 3
+                      accessionNumber: 0001140361-26-035359
+                      primaryDocument: xslF345X06/form3.xml
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000114036126035359/xslF345X06/form3.xml
+                      items: null
+                      isXBRL: false
+                    - form: 8-K/A
+                      filingDate: '2026-09-01'
+                      reportDate: '2026-04-17'
+                      primaryDocDescription: 8-K/A
+                      accessionNumber: 0001140361-26-035325
+                      primaryDocument: ef20081427_8ka.htm
+                      url: https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm
+                      items: '5.02'
+                      isXBRL: true
+                  analytics:
+                    formCounts:
+                      '4': 590
+                      '144': 45
+                      8-K: 103
+                      424B2: 46
+                      10-Q: 33
+                      PX14A6G: 27
+                    filingsLast30Days: 7
+                    filingsLast90Days: 11
+                    filingsLast365Days: 50
+                    daysSinceLastFiling: 7
+                    daysSinceLastAnnual: 321
+                    daysSinceLastQuarterly: 48
+                    averageDaysBetweenFilings: 4.5
+                    mostActiveForm: '4'
+        '401':
+          description: Your request was not authorized, or your API Key was invalid
+        '404':
+          description: Requested resource was not found
+        '500':
+          description: A server error has occurred, try again later
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+security:
+  - api_key: []
