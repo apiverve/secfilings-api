@@ -1,0 +1,16 @@
+name: apiverve_secfilings
+description: "SEC Filings returns the recent EDGAR filing history for a US public company by ticker - 10-K annual reports, 10-Q quarterlies, 8-K current reports, Form 4 insider filings, S-1 registrations and more - each with its filing date, form type and a direct link to the document, plus derived filing-activity analytics calculated for you."
+version: 1.2.6
+homepage: https://apiverve.com/marketplace/secfilings?utm_source=dart&utm_medium=referral&utm_content=homepage
+repository: https://github.com/apiverve/secfilings-api/tree/main/dart
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  http: ^1.1.0
+  http_parser: ^4.0.0
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0
